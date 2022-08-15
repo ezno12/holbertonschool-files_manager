@@ -1,5 +1,6 @@
-const sha1 = require('sha1');
 import DBClient from '../utils/db';
+
+const sha1 = require('sha1');
 
 class UsersController {
   static async postNew(request, response) {
@@ -17,7 +18,7 @@ class UsersController {
 
     const hashedPassword = sha1(userPassword);
     const addNewUser = await DBClient.db.collection('users').insertOne({
-      email: userEmail, password: hashedPassword
+      email: userEmail, password: hashedPassword,
     });
 
     return response.status(201).send({ id: addNewUser.insertedId, email: userEmail });
