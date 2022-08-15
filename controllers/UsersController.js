@@ -3,11 +3,11 @@ import DBClient from '../utils/db';
 
 class UsersController {
   static async postNew(request, response) {
-    const userEmail = response.body.email;
+    const userEmail = request.body.email;
     if (!userEmail) {
       return response.status(400).send({ error: 'Missing email' });
     }
-    const userPassword = response.body.password;
+    const userPassword = request.body.password;
     if (!userPassword) {
       return response.status(400).send({ error: 'Missing password' });
     }
@@ -16,7 +16,7 @@ class UsersController {
     if (existedUser) { return response.status(400).send({ error: 'Already exist' }); }
 
     const hashedPassword = sha1(userPassword);
-    const addNewUser = await DBClient.db.collection.insertOne({
+    const addNewUser = await DBClient.db.collection('users').insertOne({
       email: userEmail, password: hashedPassword,
     });
 
