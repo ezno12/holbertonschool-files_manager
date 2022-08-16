@@ -95,7 +95,6 @@ class FilesController {
     });
   }
 
-
   static async getShow(req, res) {
     const token = req.header('X-Token') || null;
     if (!token) return res.status(401).send({ error: 'Unauthorized' });
@@ -167,7 +166,6 @@ class FilesController {
 
     return res.send(filesArray);
   }
-
 }
 
 module.exports = FilesController;
