@@ -21,7 +21,7 @@ class DBClient {
     return false;
   }
 
-  nbUsers() {
+  async nbUsers() {
     return this.db.collection('users').countDocuments();
   }
 
