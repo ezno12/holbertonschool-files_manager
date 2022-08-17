@@ -9,9 +9,9 @@ const mime = require('mime-types');
 
 class FilesController {
   static async postUpload(req, res) {
+    const token = req.header('X-Token') || null;
     const fileQueue = new Bull('fileQueue');
 
-    const token = req.header('X-Token') || null;
     if (!token) return res.status(401).send({ error: 'Unauthorized' });
 
     const redisToken = await RedisClient.get(`auth_${token}`);
@@ -285,5 +285,4 @@ class FilesController {
     }
   }
 }
-
 module.exports = FilesController;
